@@ -49,7 +49,9 @@
 * De 7:00:00pm a 6:59:59am `db.tweets.aggregate([{$lookup:{from:"primarydialects","localField":"user.lang","foreignField":"lang","as":"language"}},{$lookup:{from:"languagenames","localField":"language.locale","foreignField":"locale","as":"fulllocale"}},{$match:{created_at:{$regex:/[a-z]{3}.[a-z]{3}.[0-9]{2}.(19|20|21|22|23|24|01|02|03|04|05|06).*/i}}},{$group:{_id:"$user.time_zone",count:{$sum:1}}}]).sort({"count":-1})`
 
 * De 7:00:00am a 6:59:59pm `db.tweets.aggregate([{$lookup:{from:"primarydialects","localField":"user.lang","foreignField":"lang","as":"language"}},{$lookup:{from:"languagenames","localField":"language.locale","foreignField":"locale","as":"fulllocale"}},{$match:{created_at:{$regex:/[a-z]{3}.[a-z]{3}.[0-9]{2}.(07|08|09|10|11|12|13|14|15|16|17|18).*/i}}},{$group:{_id:"$user.time_zone",count:{$sum:1}}}]).sort({"count":-1})`
+* la mayoría de tuits son de Null (los que no ponen nada), Brasil, EE.UU y Canadá en ambos casos 
 
 7. De qué país son los tuiteros más famosos de nuestra colección?
 
-* Tomando más famosos como "con más seguidores" `db.tweets.aggregate([{$lookup:{from:"primarydialects","localField":"user.lang","foreignField":"lang","as":"language"}},{$lookup:{from:"languagenames","localField":"language.locale","foreignField":"locale","as":"fulllocale"}},{$project:{_id:1,"user.time_zone":1,"user.followers_count":1}},{$sort:{"user.followers_count":-1}}])`
+* Tomando más famosos como "con más seguidores" `db.tweets.aggregate([{$lookup:{from:"primarydialects","localField":"user.lang","foreignField":"lang","as":"language"}},{$lookup:{from:"languagenames","localField":"language.locale","foreignField":"locale","as":"fulllocale"}},{$project:{_id:1,"user.time_zone":1,"user.followers_count":1}},{$sort:{"user.followers_count":-1
+* Los 3 tuiteros más famosos son de EE.UU, Canadá e Inglaterra. 
